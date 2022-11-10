@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
 
 app.get("/users", async (req, res) => {
     let users = await User.findAll();
-
     res.send(users);
 })
 
