@@ -67,7 +67,26 @@ app.post("/users/register", async (req, res) => {
 
 })
 
-app.
+app.post("/users/login", async (req, res) => {
+    const {username, password} = req.body;
+    const user = await User.findOne({where: {username}});
+    const isMatch = bcrypt.compareSync(password, user.password);
+    if(isMatch){
+        // Successful Login
+        // Deconstructing the User Object by its properties/fields.
+        const {id, username} = user
+
+        const token = jwt.sign({
+            id, 
+            username
+        }, ACCESS_TOKEN_SECRET);
+
+        res.send({message: "Successful Login", token});
+    }else{
+        // Not successful Login
+        res.send("User Not Found");
+    }
+})
 
 app.listen(PORT, async () => {
 
