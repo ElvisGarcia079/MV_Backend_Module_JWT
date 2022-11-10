@@ -19,6 +19,17 @@ const salt = bcrypt.genSaltSync(4);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+let setUser = async (req, res, next) => {
+    try{
+        //The first thing we will do is we will get the "auth"
+        const auth = req.header("Authorization");
+        console.log(auth)
+    }catch(err){
+        console.error(err)
+        next(err);
+    }
+}
+
 app.get("/", (req, res) => {
     res.send("Success!!!!!!");
 })
@@ -43,6 +54,8 @@ app.post("/users/register", async (req, res) => {
 
     // Now we can create the user with these references: 
     let createdUser = await User.create({username, password: hashedPW});
+
+    console.log("hashedPW: ", hashedPW);
 
     const token = jwt.sign({id: createdUser.id, username: createdUser.username}, ACCESS_TOKEN_SECRET);
 
