@@ -14,6 +14,10 @@ app.get("/", (req, res) => {
     res.send("Success!!!!!!");
 })
 
+app.post("/register", (req, res) => {
+    
+})
+
 app.listen(PORT, () => {
     console.log(`App listening on http://localhost:${PORT}`);
 });
