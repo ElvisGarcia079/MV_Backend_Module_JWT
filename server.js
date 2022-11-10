@@ -10,6 +10,10 @@ const {PORT} = process.env;
 const {User} = require("./db/User");
 const {sequelize} = require("./db/db");
 
+// Requiring BCrypt and Creating Salt Object for Hashing Passwords. 
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync(4);
+
 //Include the Middleware
 // This is important for when we include information in the body of the request or the "req.body". 
 app.use(express.json());
