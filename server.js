@@ -57,6 +57,7 @@ app.post("/users/register", async (req, res) => {
 
     console.log("hashedPW: ", hashedPW);
 
+
     const token = jwt.sign({id: createdUser.id, username: createdUser.username}, ACCESS_TOKEN_SECRET);
 
 
@@ -65,6 +66,8 @@ app.post("/users/register", async (req, res) => {
     
 
 })
+
+app.
 
 app.listen(PORT, async () => {
 
