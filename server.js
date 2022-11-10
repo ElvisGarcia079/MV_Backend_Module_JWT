@@ -4,7 +4,7 @@ const app = express();
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-const {PORT} = process.env;
+const {PORT, ACCESS_TOKEN_SECRET} = process.env;
 
 // This is for the Databases
 const {User} = require("./db/User");
@@ -29,7 +29,7 @@ app.get("/users", async (req, res) => {
     res.send(users);
 })
 
-app.post("/users/register", (req, res) => {
+app.post("/users/register", async (req, res) => {
     // The user should be authenticated
 
     // First thing we want to do is get the data passed into the body
@@ -40,6 +40,16 @@ app.post("/users/register", (req, res) => {
 
     // What we want to do now is, we want to create a user based on the data passed in, except, we want to hash the password as it goes into the database!
     // We can accomplish that using Bcrypt: 
+    hashedPW = bcrypt.hashSync(password, salt);
+
+    // Now we can create the user with these references: 
+    let createdUser = await User.create({username, password: hashedPW});
+
+    const token = jwt.sign({id: createdUser.id, username: createdUser.username}, ACCESS_TOKEN_SECRET);
+
+
+
+    res.send({message: "User Successfully Registed", token})
     
 
 })
