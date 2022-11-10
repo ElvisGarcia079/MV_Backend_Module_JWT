@@ -23,7 +23,17 @@ let setUser = async (req, res, next) => {
     try{
         //The first thing we will do is we will get the "auth"
         const auth = req.header("Authorization");
-        console.log(auth)
+        if(!auth){
+            console.log("I'm in the if");
+            next();
+        }else{
+            console.log("I'm in the else");
+            const [, token] = auth.split(" ");
+            console.log("Token: ", token)
+            const user = jwt.verify(token, ACCESS_TOKEN_SECRET);
+            req.user = user;
+            next();
+        }
     }catch(err){
         console.error(err)
         next(err);
