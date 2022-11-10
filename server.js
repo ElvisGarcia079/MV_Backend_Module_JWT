@@ -34,6 +34,10 @@ app.post("/users/register", (req, res) => {
     console.log("The username is: ", username);
     console.log("The password is: ", password);
 
+    // What we want to do now is, we want to create a user based on the data passed in, except, we want to hash the password as it goes into the database!
+    // We can accomplish that using Bcrypt: 
+    
+
 })
 
 app.listen(PORT, async () => {
