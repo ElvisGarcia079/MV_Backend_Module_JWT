@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 
 const {PORT} = process.env;
 
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
 })
 
 app.post("/register", (req, res) => {
-    
+    // The user should be authenticated
 })
 
 app.listen(PORT, () => {
